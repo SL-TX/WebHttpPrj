@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.skypro.webhttpprj.model.Faculty;
+import ru.skypro.webhttpprj.model.Student;
 import ru.skypro.webhttpprj.service.FacultyService;
 
 import java.util.Collection;
@@ -63,6 +64,21 @@ public class FacultyController {
             return ResponseEntity.ok(facultyService.findByColor(color));
         }
         return ResponseEntity.ok(Collections.emptyList());
+    }
+
+    @GetMapping("match")
+    @Operation(summary = "GET by color and name")
+    public ResponseEntity<Collection<Faculty>> findByColorAndName(@RequestParam(required = false) String color, @RequestParam String name) {
+        if (name != null && !name.isBlank() && color != null && !color.isBlank()) {
+            return ResponseEntity.ok(facultyService.findAllByColorLikeAndNameLike(color,name));
+        }
+        return ResponseEntity.ok(Collections.emptyList());
+    }
+
+    @GetMapping("getStudents")
+    @Operation(summary = "GET students of Faculty ")
+    public Collection<Student> getStudents(@RequestParam int id){
+        return facultyService.getStudents(id);
     }
 
 }

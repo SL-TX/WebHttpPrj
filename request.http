@@ -54,3 +54,15 @@ GET http://localhost:8080/student?age=23
 
 ###
 DELETE http://localhost:8080/student/1
+
+###
+GET http://localhost:8080/student/getFaculty?id=1
+
+###
+GET http://localhost:8080/faculty/getStudents?id=1
+
+###
+GET http://localhost:8080/student/between?min=10&max=20
+
+###
+GET http://localhost:8080/faculty/match?name=asd&color=green

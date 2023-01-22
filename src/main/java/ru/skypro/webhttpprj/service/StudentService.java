@@ -3,7 +3,9 @@ package ru.skypro.webhttpprj.service;
 
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import ru.skypro.webhttpprj.model.Faculty;
 import ru.skypro.webhttpprj.model.Student;
 import ru.skypro.webhttpprj.repository.StudentRepository;
 
@@ -39,5 +41,13 @@ public class StudentService {
 
     public Collection<Student> findByAge(int age) {
         return studentRepository.findByAge(age);
+    }
+
+    public Collection<Student> findByAgeBetween(int min, int max){
+        return studentRepository.findByAgeBetween(min,max);
+    }
+
+    public Faculty getFaculty(int id) {
+        return findStudent(id).getFaculty();
     }
 }

@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.skypro.webhttpprj.model.Faculty;
 import ru.skypro.webhttpprj.model.Student;
 import ru.skypro.webhttpprj.service.StudentService;
 
@@ -64,4 +65,20 @@ public class StudentController {
         }
         return ResponseEntity.ok(Collections.emptyList());
     }
+
+    @GetMapping("between")
+    @Operation(summary = "GET between ages")
+    public ResponseEntity<Collection<Student>> findBetween(@RequestParam(required = false) int min,@RequestParam int max) {
+        if (min > 0 && max > 0) {
+            return ResponseEntity.ok(studentService.findByAgeBetween(min,max));
+        }
+        return ResponseEntity.ok(Collections.emptyList());
+    }
+
+    @GetMapping("getFaculty")
+    @Operation(summary = "GET Faculty of student")
+    public ResponseEntity<Faculty> getFaculty(@RequestParam int id){
+        return ResponseEntity.ok(studentService.getFaculty(id));
+    }
+
 }

@@ -2,9 +2,7 @@ package ru.skypro.webhttpprj.model;
 
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.Objects;
 
@@ -20,6 +18,18 @@ public class Student {
     private String name;
     @Schema(description = "Возраст")
     private int age;
+
+
+    @ManyToOne
+    private Faculty faculty;
+
+    public Faculty getFaculty() {
+        return faculty;
+    }
+
+    public void setFaculty(Faculty faculty) {
+        this.faculty = faculty;
+    }
 
     public Student() {
     }

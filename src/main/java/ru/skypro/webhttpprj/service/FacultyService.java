@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import ru.skypro.webhttpprj.model.Faculty;
+import ru.skypro.webhttpprj.model.Student;
 import ru.skypro.webhttpprj.repository.FacultyRepository;
 
 import java.util.ArrayList;
@@ -45,4 +46,11 @@ public class FacultyService {
         return facultyRepository.findByColor(color);
     }
 
+    public Collection<Faculty> findAllByColorLikeAndNameLike(String color, String name) {
+        return facultyRepository.findAllByColorLikeAndNameLike(color, name);
+    }
+
+    public Collection<Student> getStudents(int id) {
+        return findFaculty(id).getStudents();
+    }
 }
