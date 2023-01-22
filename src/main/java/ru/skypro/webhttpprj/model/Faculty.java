@@ -1,10 +1,9 @@
 package ru.skypro.webhttpprj.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -19,6 +18,13 @@ public class Faculty {
     private String name;
     @Schema(description = "Цвет")
     private String color;
+
+    @OneToMany(mappedBy = "faculty")
+    private Collection<Student> students;
+
+    public Collection<Student> getStudents() {
+        return students;
+    }
 
     public Faculty() {
     }
