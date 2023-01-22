@@ -1,0 +1,6 @@
+spring:
+ datasource:
+  url: jdbc:postgresql://localhost:5432/myDb
+  username: postgres
+  password: testtest
+ jpa.hibernate.ddl-auto: update

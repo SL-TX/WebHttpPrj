@@ -8,13 +8,14 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8080/faculty/0
+GET http://localhost:8080/faculty/1
 
+###
 PUT http://localhost:8080/faculty
 Content-Type: application/json
 
 {
-  "id": 0,
+  "id": 1,
   "name":"asd2",
   "color":"green"
 }
@@ -23,7 +24,7 @@ Content-Type: application/json
 GET http://localhost:8080/faculty?color=green
 
 ###
-DELETE http://localhost:8080/faculty/0
+DELETE http://localhost:8080/faculty/1
 
 
 ###
@@ -36,14 +37,14 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8080/student/0
+GET http://localhost:8080/student/1
 
 ###
 PUT http://localhost:8080/student
 Content-Type: application/json
 
 {
-  "id":0,
+  "id":1,
   "name":"asd",
   "age":23
 }
@@ -52,4 +53,4 @@ Content-Type: application/json
 GET http://localhost:8080/student?age=23
 
 ###
-DELETE http://localhost:8080/student/0
+DELETE http://localhost:8080/student/1
