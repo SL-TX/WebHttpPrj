@@ -1,12 +1,18 @@
 package ru.skypro.webhttpprj.model;
 
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.util.Objects;
 
+@Schema(description = "Студент")
 public class Student {
 
+    @Schema(description = "Идентификатор")
     private long id;
+    @Schema(description = "Имя")
     private String name;
+    @Schema(description = "Возраст")
     private int age;
 
     public Student() {

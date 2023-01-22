@@ -1,11 +1,18 @@
 package ru.skypro.webhttpprj.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.util.Objects;
 
+@Schema(description = "Факультет")
 public class Faculty {
 
+    @Schema(description = "Идентификатор")
     private long id;
-    private String name, color;
+    @Schema(description = "Имя")
+    private String name;
+    @Schema(description = "Цвет")
+    private String color;
 
     public Faculty() {
     }

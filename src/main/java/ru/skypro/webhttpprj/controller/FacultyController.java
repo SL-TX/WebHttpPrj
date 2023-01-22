@@ -1,6 +1,8 @@
 package ru.skypro.webhttpprj.controller;
 
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +14,7 @@ import java.util.Collections;
 
 @RestController
 @RequestMapping("/faculty")
+@Tag(name = "Контроллер факультетов", description = "REST")
 public class FacultyController {
 
     private final FacultyService facultyService;
@@ -21,6 +24,7 @@ public class FacultyController {
     }
 
     @GetMapping("{id}")
+    @Operation(summary = "GET")
     public ResponseEntity<Faculty> getFacultyInfo(@PathVariable Long id) {
         Faculty faculty = facultyService.findFaculty(id);
         if (faculty == null) {
@@ -30,11 +34,13 @@ public class FacultyController {
     }
 
     @PostMapping
+    @Operation(summary = "CREATE")
     public Faculty createFaculty(@RequestBody Faculty faculty) {
         return facultyService.addFaculty(faculty);
     }
 
     @PutMapping
+    @Operation(summary = "SET")
     public ResponseEntity<Faculty> editFaculty(@RequestBody Faculty faculty) {
         Faculty foundFaculty = facultyService.editFaculty(faculty.getId(),faculty);
         if (foundFaculty == null) {
@@ -44,12 +50,14 @@ public class FacultyController {
     }
 
     @DeleteMapping("{id}")
+    @Operation(summary = "DELETE")
     public ResponseEntity<Void> deleteFaculty(@PathVariable Long id) {
         facultyService.deleteFaculty(id);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping
+    @Operation(summary = "GET by color")
     public ResponseEntity<Collection<Faculty>> findFaculties(@RequestParam(required = false) String color) {
         if (color != null && !color.isBlank()) {
             return ResponseEntity.ok(facultyService.findByColor(color));
