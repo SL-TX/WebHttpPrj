@@ -4,6 +4,7 @@ package ru.skypro.webhttpprj.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.skypro.webhttpprj.dto.StudentDto;
 import ru.skypro.webhttpprj.model.Faculty;
 import ru.skypro.webhttpprj.model.Student;
 import ru.skypro.webhttpprj.repository.StudentRepository;
@@ -46,5 +47,17 @@ public class StudentService {
 
     public Faculty getFaculty(int id) {
         return findStudent(id).getFaculty();
+    }
+
+    public Integer getCount() {
+        return studentRepository.countStudent();
+    }
+
+    public Integer getAvgAge() {
+        return studentRepository.avgAge();
+    }
+
+    public Collection<StudentDto> getLastStudents() {
+        return studentRepository.lastStudents();
     }
 }
