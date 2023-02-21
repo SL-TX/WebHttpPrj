@@ -26,9 +26,9 @@ public class FacultyService {
     }
 
     public Faculty editFaculty(long id, Faculty faculty) {
-        if (!facultyRepository.existsById(id)) {
-            return null;
-        }
+//        if (!facultyRepository.existsById(id)) {
+//            return null;
+//        }
         facultyRepository.save(faculty);
         return faculty;
     }

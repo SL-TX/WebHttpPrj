@@ -25,9 +25,9 @@ public class StudentService {
     }
 
     public Student editStudent(long id, Student student) {
-        if (!studentRepository.existsById(id)) {
-            return null;
-        }
+//        if (!studentRepository.existsById(id)) {
+//            return null;
+//        }
         return studentRepository.save(student);
     }
 
