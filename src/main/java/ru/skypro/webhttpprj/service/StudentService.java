@@ -3,15 +3,12 @@ package ru.skypro.webhttpprj.service;
 
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ru.skypro.webhttpprj.model.Faculty;
 import ru.skypro.webhttpprj.model.Student;
 import ru.skypro.webhttpprj.repository.StudentRepository;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 
 @Service
 @RequiredArgsConstructor
