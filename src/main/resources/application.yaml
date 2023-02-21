@@ -4,3 +4,4 @@ spring:
   username: postgres
   password: testtest
  jpa.hibernate.ddl-auto: update
+path.to.avatars.folder: /home/sl/avatars
