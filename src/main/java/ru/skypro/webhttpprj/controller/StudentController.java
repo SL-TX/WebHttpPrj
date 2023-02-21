@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.skypro.webhttpprj.dto.StudentDto;
 import ru.skypro.webhttpprj.model.Faculty;
 import ru.skypro.webhttpprj.model.Student;
 import ru.skypro.webhttpprj.service.StudentService;
@@ -81,4 +82,17 @@ public class StudentController {
         return ResponseEntity.ok(studentService.getFaculty(id));
     }
 
+    @GetMapping("getCount")
+    public Integer getCount(){
+        return studentService.getCount();
+    }
+
+    @GetMapping("getAvgAge")
+    public Integer getAvgAge(){
+        return studentService.getAvgAge();
+    }
+    @GetMapping("getLastStudents")
+    public Collection<StudentDto> getLastStudents(){
+        return studentService.getLastStudents();
+    }
 }

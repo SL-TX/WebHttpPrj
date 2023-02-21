@@ -2,6 +2,7 @@ package ru.skypro.webhttpprj.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.skypro.webhttpprj.model.Avatar;
@@ -12,6 +13,7 @@ import ru.skypro.webhttpprj.repository.StudentRepository;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Collection;
 import java.util.Objects;
 
 import static java.nio.file.StandardOpenOption.CREATE_NEW;
@@ -54,4 +56,7 @@ public class AvatarService {
     }
 
 
+    public Collection<Avatar> listAvatars(Pageable pageable) {
+        return avatarRepository.findAll(pageable).toList();
+    }
 }

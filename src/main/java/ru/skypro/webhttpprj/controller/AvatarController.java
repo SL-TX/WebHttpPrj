@@ -1,6 +1,7 @@
 package ru.skypro.webhttpprj.controller;
 
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,6 +16,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping("/student")
@@ -52,5 +55,14 @@ public class AvatarController {
             response.setContentLength((int) avatar.getFileSize());
             is.transferTo(os);
         }
+    }
+
+    @GetMapping("avatars")
+    public ResponseEntity<Collection<byte[]>> listAvatars(Pageable pageable){
+        Collection<Avatar> avatar = avatarService.listAvatars(pageable);
+        HttpHeaders headers = new HttpHeaders();
+        return ResponseEntity.status(HttpStatus.OK).headers(headers).body(
+                avatar.stream().map(Avatar::getData).toList()
+        );
     }
 }
