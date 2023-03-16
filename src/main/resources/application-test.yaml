@@ -1,0 +1,10 @@
+spring:
+ liquibase:
+  change-log: classpath:liquibase/changelog-master.yml
+ datasource:
+  url: jdbc:postgresql://localhost:5432/myDb
+  username: postgres
+  password: testtest
+ jpa.hibernate.ddl-auto: update
+path.to.avatars.folder: /home/sl/avatars
+server.port: 8888
