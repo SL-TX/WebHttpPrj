@@ -1,6 +1,8 @@
 package ru.skypro.webhttpprj.service;
 
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -24,9 +26,12 @@ public class AvatarService {
 
     private final StudentRepository studentRepository;
     private final AvatarRepository avatarRepository;
+
+    Logger logger = LoggerFactory.getLogger(AvatarService.class);
     @Value("${path.to.avatars.folder}")
     private String avatarsDir;
     public void uploadAvatar(Long studentId, MultipartFile avatarFile) throws IOException {
+        logger.info("Was invoked method for uploadAvatar");
         Student student = studentRepository.getById(studentId);
         Path filePath = Path.of(avatarsDir, student + "." + getExtensions(Objects.requireNonNull(avatarFile.getOriginalFilename())));
         Files.createDirectories(filePath.getParent());
@@ -39,6 +44,9 @@ public class AvatarService {
         ) {
             bis.transferTo(bos);
         }
+        catch (Exception e) {
+            logger.error("error "+ e);
+        }
         Avatar avatar = findAvatar(studentId);
         avatar.setStudent(student);
         avatar.setFilePath(filePath.toString());
@@ -48,15 +56,18 @@ public class AvatarService {
         avatarRepository.save(avatar);
     }
     private String getExtensions(String fileName) {
+        logger.info("Was invoked method for getExtensions");
         return fileName.substring(fileName.lastIndexOf(".") + 1);
     }
 
     public Avatar findAvatar(Long id) {
+        logger.info("Was invoked method for findAvatar");
         return avatarRepository.findById(id).orElse(new Avatar());
     }
 
 
     public Collection<Avatar> listAvatars(Pageable pageable) {
+        logger.info("Was invoked method for listAvatars");
         return avatarRepository.findAll(pageable).toList();
     }
 }
