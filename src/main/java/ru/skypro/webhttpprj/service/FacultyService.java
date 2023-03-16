@@ -9,6 +9,7 @@ import ru.skypro.webhttpprj.model.Student;
 import ru.skypro.webhttpprj.repository.FacultyRepository;
 
 import java.util.Collection;
+import java.util.Comparator;
 
 @Service
 public class FacultyService {
@@ -57,5 +58,15 @@ public class FacultyService {
     public Collection<Student> getStudents(int id) {
         logger.info("Was invoked method for getStudents");
         return findFaculty(id).getStudents();
+    }
+
+    public String getLongestFacultyName() {
+        logger.info("Was invoked method for getLongestFacultyName");
+        return facultyRepository
+                .findAll()
+                .stream()
+                .map(Faculty::getName)
+                .max(Comparator.comparingInt(String::length))
+                .orElseThrow();
     }
 }
