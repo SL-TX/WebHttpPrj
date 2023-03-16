@@ -5,6 +5,7 @@ package ru.skypro.webhttpprj.service;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -13,6 +14,7 @@ import ru.skypro.webhttpprj.model.Faculty;
 import ru.skypro.webhttpprj.model.Student;
 import ru.skypro.webhttpprj.repository.StudentRepository;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
@@ -101,5 +103,57 @@ public class StudentService {
                             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "err");
                         }
                 );
+    }
+
+    public Collection<String> getAsyncStudentNames() {
+        logger.info("Was invoked method for getAsyncStudentNames");
+        var students = studentRepository.findAll(Sort.by("id"));
+        var arr = new ArrayList<String>();
+        if (students.size()>=6){
+//            arr.add(students.get(0).getName());
+//            arr.add(students.get(1).getName());
+            System.out.println(students.get(0).getName());
+            System.out.println(students.get(1).getName());
+            new Thread(()->{
+//                arr.add(students.get(2).getName());
+//                arr.add(students.get(3).getName());
+                System.out.println(students.get(2).getName());
+                System.out.println(students.get(3).getName());
+            }).start();
+            new Thread(()->{
+//                arr.add(students.get(4).getName());
+//                arr.add(students.get(5).getName());
+                System.out.println(students.get(4).getName());
+                System.out.println(students.get(5).getName());
+            }).start();
+        }
+        return arr;
+    }
+
+    public Collection<String> getSyncStudentNames() {
+        logger.info("Was invoked method for getSyncStudentNames");
+        var students = studentRepository.findAll(Sort.by("id"));
+        var arr = new ArrayList<String>();
+        if (students.size()>=6){
+            addInArray(arr,students.get(0).getName());
+            addInArray(arr,students.get(1).getName());
+            new Thread(()->{
+                addInArray(arr,students.get(2).getName());
+                addInArray(arr,students.get(3).getName());
+            }).start();
+            new Thread(()->{
+                addInArray(arr,students.get(4).getName());
+                addInArray(arr,students.get(5).getName());
+            }).start();
+        }
+        return arr;
+    }
+
+    private final Object flag = new Object();
+    private void addInArray(ArrayList<String> arr, String name){
+        synchronized (flag) {
+//            arr.add(name);
+            System.out.println(name);
+        }
     }
 }
