@@ -5,13 +5,16 @@ package ru.skypro.webhttpprj.service;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 import ru.skypro.webhttpprj.dto.StudentDto;
 import ru.skypro.webhttpprj.model.Faculty;
 import ru.skypro.webhttpprj.model.Student;
 import ru.skypro.webhttpprj.repository.StudentRepository;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -72,5 +75,31 @@ public class StudentService {
     public Collection<StudentDto> getLastStudents() {
         logger.info("Was invoked method for getLastStudents");
         return studentRepository.lastStudents();
+    }
+
+    public Collection<String> getStudentsStartWithA() {
+        logger.info("Was invoked method for getStudentsStartWithA");
+        var students = studentRepository.findAll();
+        return students
+                .stream()
+                .map(Student::getName)
+                .map(String::toUpperCase)
+                .filter(s->s.startsWith("А"))
+                .sorted()
+                .collect(Collectors.toList());
+    }
+
+    public Double getStudentsAverageAge() {
+        logger.info("Was invoked method for getStudentsAverageAge");
+        var students = studentRepository.findAll();
+        return students
+                .stream()
+                .mapToInt(Student::getAge)
+                .average().orElseThrow(
+                        ()-> {
+                            logger.error("Students age is not aviable");
+                            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "err");
+                        }
+                );
     }
 }

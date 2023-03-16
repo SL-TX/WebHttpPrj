@@ -95,4 +95,13 @@ public class StudentController {
     public Collection<StudentDto> getLastStudents(){
         return studentService.getLastStudents();
     }
+
+    @GetMapping("getStudentsStartWithA")
+    public Collection<String> getStudentsStartWithA(){
+        return studentService.getStudentsStartWithA();
+    }
+    @GetMapping("getStudentsAverageAge")
+    public Double getStudentsAverageAge(){
+        return studentService.getStudentsAverageAge();
+    }
 }
