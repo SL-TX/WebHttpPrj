@@ -104,4 +104,13 @@ public class StudentController {
     public Double getStudentsAverageAge(){
         return studentService.getStudentsAverageAge();
     }
+
+    @GetMapping("getAsyncStudentNames")
+    public Collection<String> getAsyncStudentNames(){
+        return studentService.getAsyncStudentNames();
+    }
+    @GetMapping("getSyncStudentNames")
+    public Collection<String> getSyncStudentNames(){
+        return studentService.getSyncStudentNames();
+    }
 }
